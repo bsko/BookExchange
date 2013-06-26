@@ -10,7 +10,7 @@ public class BookVO {
   
   private ObjectId id;
   private String name;
-  private String description;
+  private String author;
   private List<CommentVO> comments;
 
   public ObjectId getId() {
@@ -29,12 +29,12 @@ public class BookVO {
     this.name = name;
   }
 
-  public String getDescription() {
-    return description;
+  public String getAuthor() {
+    return author;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setAuthor(String author) {
+    this.author = author;
   }
 
   public List<CommentVO> getComments() {
