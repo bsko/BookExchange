@@ -2,23 +2,16 @@ package com.myproject.bookexchange.domain;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "changes")
 public class ChangeVO {
-  private Long id;
+  
   private Date date;
-  private UserVO sender;
-  private UserVO receiver;
-  private BookVO book;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
+  private ObjectId sender;
+  private ObjectId receiver;
+  private ObjectId book;
 
   public Date getDate() {
     return date;
@@ -28,27 +21,27 @@ public class ChangeVO {
     this.date = date;
   }
 
-  public UserVO getSender() {
+  public ObjectId getSender() {
     return sender;
   }
 
-  public void setSender(UserVO sender) {
+  public void setSender(ObjectId sender) {
     this.sender = sender;
   }
 
-  public UserVO getReceiver() {
+  public ObjectId getReceiver() {
     return receiver;
   }
 
-  public void setReceiver(UserVO receiver) {
+  public void setReceiver(ObjectId receiver) {
     this.receiver = receiver;
   }
 
-  public BookVO getBook() {
+  public ObjectId getBook() {
     return book;
   }
 
-  public void setBook(BookVO book) {
+  public void setBook(ObjectId book) {
     this.book = book;
   }
 }
