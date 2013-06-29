@@ -1,5 +1,8 @@
 package com.myproject.bookexchange.dao.impl;
 
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 import com.myproject.bookexchange.dao.IUserDAO;
 import com.myproject.bookexchange.domain.UserVO;
 
@@ -23,8 +26,8 @@ public class UserDAO extends GenericMongoDAO<UserVO> implements IUserDAO {
 
   @Override
   public UserVO getUserByLogin(String login) {
-    // TODO Auto-generated method stub
-    return null;
+    Query q = new Query(Criteria.where("security.login").is(login));
+    return mongo.findOne(q, UserVO.class);
   }
   
 }
