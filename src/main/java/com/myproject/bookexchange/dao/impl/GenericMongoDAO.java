@@ -22,11 +22,7 @@ public abstract class GenericMongoDAO<T extends DomainObject> implements IGeneri
     super();
     this.persistentClass = persistentClass;
   }
-  
-  public MongoOperations getMongo() {
-    return mongo;
-  }
-  
+    
   public abstract void beforeEntityUpdateAdd(T entity);
   
   public abstract void beforeEntityDelete(T entity);
@@ -61,5 +57,10 @@ public abstract class GenericMongoDAO<T extends DomainObject> implements IGeneri
   public T getEntityById(ObjectId id) {
     log.info("Getting entity of class: " + persistentClass + " by id");
     return mongo.findById(id, persistentClass);
+  }
+
+  @Override
+  public void setMongo(MongoOperations mongo) {
+    this.mongo = mongo;
   }
 }

@@ -1,5 +1,7 @@
 package com.myproject.bookexchange.dao;
 
-public interface IBookDAO {
+import com.myproject.bookexchange.domain.BookVO;
+
+public interface IBookDAO extends IGenericDAO<BookVO> {
   
 }

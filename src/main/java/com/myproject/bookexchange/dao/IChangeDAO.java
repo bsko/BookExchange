@@ -7,7 +7,7 @@ import com.myproject.bookexchange.domain.BookVO;
 import com.myproject.bookexchange.domain.ChangeVO;
 import com.myproject.bookexchange.domain.UserVO;
 
-public interface IChangeDAO {
+public interface IChangeDAO extends IGenericDAO<ChangeVO> {
   
   public List<ChangeVO> getChangesByBook(BookVO book);
   public List<ChangeVO> getChangesByReceiver(UserVO receiver);
