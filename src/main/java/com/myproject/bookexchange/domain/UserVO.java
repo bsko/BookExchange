@@ -2,25 +2,31 @@ package com.myproject.bookexchange.domain;
 
 import java.util.Date;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
-public class UserVO {
+public class UserVO extends DomainObject {
 
-  private ObjectId id;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1459929015945984258L;
+  
+  
   private String name;
   private String surname;
   private Date birthdate;
   private String description;
   private SecurityVO security;
-
-  public ObjectId getId() {
-    return id;
-  }
-
-  public void setId(ObjectId id) {
-    this.id = id;
+  
+  public UserVO() {}
+  
+  public UserVO(String name, String surname, Date birthdate, String description, SecurityVO sec) {
+    this.name = name;
+    this.surname = surname;
+    this.birthdate = birthdate;
+    this.description = description;
+    this.security = sec;
   }
 
   public String getName() {

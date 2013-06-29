@@ -6,7 +6,12 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "changes")
-public class ChangeVO {
+public class ChangeVO extends DomainObject {
+  
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -5559312893368477121L;
   
   private Date date;
   private ObjectId sender;

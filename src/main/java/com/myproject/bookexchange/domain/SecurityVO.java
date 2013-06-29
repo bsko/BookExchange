@@ -5,6 +5,13 @@ public class SecurityVO {
   private String login;
   private String password;
 
+  public SecurityVO() {}
+  
+  public SecurityVO(String login, String password) {
+    this.login = login;
+    this.password = password;
+  }
+  
   public String getLogin() {
     return login;
   }

@@ -2,24 +2,19 @@ package com.myproject.bookexchange.domain;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "books")
-public class BookVO {
+public class BookVO extends DomainObject {
   
-  private ObjectId id;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -425462222620335969L;
+  
   private String name;
   private String author;
   private List<CommentVO> comments;
-
-  public ObjectId getId() {
-    return id;
-  }
-
-  public void setId(ObjectId id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;
