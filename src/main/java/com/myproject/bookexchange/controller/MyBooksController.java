@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/my")
-public class MyBooksController {
+public class MyBooksController extends MainController {
 
 }

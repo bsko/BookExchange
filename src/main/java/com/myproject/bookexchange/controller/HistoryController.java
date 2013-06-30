@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/history")
-public class HistoryController {
+public class HistoryController extends MainController {
 
 }

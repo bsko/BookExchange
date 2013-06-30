@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/profile")
-public class ProfileController {
+public class ProfileController extends MainController {
 
 }

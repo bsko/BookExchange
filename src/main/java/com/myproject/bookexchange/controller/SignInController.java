@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/signin")
-public class SignInController {
+public class SignInController extends MainController {
   
 }

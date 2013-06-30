@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/register")
-public class RegisterController {
+public class RegisterController extends MainController {
 
 }

@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/free")
-public class FreeBooksController {
+public class FreeBooksController extends MainController {
 
 }
