@@ -2,6 +2,7 @@ package com.myproject.bookexchange.domain;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "books")
@@ -14,6 +15,7 @@ public class BookVO extends DomainObject {
   
   private String name;
   private String author;
+  private ObjectId owner;
   private List<CommentVO> comments;
 
   public String getName() {
@@ -38,5 +40,13 @@ public class BookVO extends DomainObject {
 
   public void setComments(List<CommentVO> comments) {
     this.comments = comments;
+  }
+
+  public ObjectId getOwner() {
+    return owner;
+  }
+
+  public void setOwner(ObjectId owner) {
+    this.owner = owner;
   }
 }
