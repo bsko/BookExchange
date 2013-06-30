@@ -54,6 +54,7 @@ public abstract class GenericMongoDAO<T extends DomainObject> implements IGeneri
     return mongo.findAll(persistentClass); 
   }
   
+  @Override
   public T getEntityById(ObjectId id) {
     log.info("Getting entity of class: " + persistentClass + " by id");
     return mongo.findById(id, persistentClass);
@@ -62,5 +63,10 @@ public abstract class GenericMongoDAO<T extends DomainObject> implements IGeneri
   @Override
   public void setMongo(MongoOperations mongo) {
     this.mongo = mongo;
+  }
+  
+  @Override
+  public Class<T> getDaoClass() {
+    return persistentClass;
   }
 }
