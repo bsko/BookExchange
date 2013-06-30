@@ -1,6 +1,7 @@
 package com.myproject.bookexchange.main;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
@@ -17,36 +18,38 @@ import com.myproject.bookexchange.domain.ChangeVO;
 import com.myproject.bookexchange.domain.SecurityVO;
 import com.myproject.bookexchange.domain.UserVO;
 import com.myproject.bookexchange.exception.ApplicationException;
+import com.myproject.bookexchange.service.IServiceContext;
 import com.myproject.bookexchange.tools.PasswordEnrypter;
 
 public class DAOTesting {
   
+  public static ApplicationContext ctx = new AnnotationConfigApplicationContext(
+      MongoConfiguration.class);
+  
   public static MongoOperations getMongoOperations() {
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(
-        MongoConfiguration.class);
     MongoOperations mongoOperation = (MongoOperations) ctx
         .getBean("mongoTemplate");
     return mongoOperation;
   }
   
+  public static IServiceContext getContext() {
+    IServiceContext services = (IServiceContext) ctx
+        .getBean("serviceContext");
+    return services;
+  }
+  
   public static void main(String[] args) throws ApplicationException {
-    MongoOperations mongoOperation = getMongoOperations();
-    SecurityVO sec = new SecurityVO();
-    sec.setLogin("newpos");
-    sec.setPassword(PasswordEnrypter.getDiggest("pwd"));
-    UserVO user = new UserVO();
-    user.setBirthdate(new Date());
-    user.setSecurity(sec);
-    user.setName("Alex");
-    user.setSurname("Bloch");
-    user.setDescription("New simple user");
-    mongoOperation.save(user);
-    ObjectId id = (ObjectId)user.getId();
-    //mongoOperation.save(book);
-    //mongoOperation.save(ch);*/
-    //Query q = new Query(Criteria.where("login").is("newpos"));
-    //SecurityVO savedUser = mongoOperation.findOne(q, SecurityVO.class);
-    //System.out.println(savedUser);
+    IServiceContext context = getContext();
+    List<ChangeVO> changes = context.getChangeService().getAllEntities();
+    for(ChangeVO ch : changes) {
+      BookVO book = context.getBookService().getById(ch.getBook());
+      UserVO from = context.getUserService().getById(ch.getSender());
+      UserVO to = context.getUserService().getById(ch.getReceiver());
+      String fromname = (from != null) ? from.getName() : "null";
+      
+      System.out.println("At time of: " + ch.getDate() + " Book named: " + book.getName() + " changed owner from: "
+          + fromname + " to: " + to.getName());
+    }
   }
   
 }
