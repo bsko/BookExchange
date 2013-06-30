@@ -50,7 +50,7 @@ public class ChangeDAO extends GenericMongoDAO<ChangeVO> implements IChangeDAO {
 
   @Override
   public List<ChangeVO> getAllChangesByUser(UserVO user) {
-    Query q = new Query(Criteria.where("sender").is(user.getId()).orOperator(Criteria.where("receiver").is(user.getId())));
+    Query q = new Query(new Criteria().orOperator(Criteria.where("receiver").is(user.getId()), Criteria.where("sender").is(user.getId())));
     return mongo.find(q, ChangeVO.class);
   }
 
@@ -64,7 +64,7 @@ public class ChangeDAO extends GenericMongoDAO<ChangeVO> implements IChangeDAO {
     Date from = cal.getTime();
     cal.add(Calendar.DAY_OF_MONTH, 1);
     Date to = cal.getTime();
-    Query q = new Query(Criteria.where("date").gte(from).andOperator(Criteria.where("date").lt(to)));
+    Query q = new Query(Criteria.where("date").gte(from).lt(to));//.andOperator(Criteria.where("date").lt(to)));
     return mongo.find(q, ChangeVO.class);
   }
 
