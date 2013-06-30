@@ -1,5 +1,6 @@
 package com.myproject.bookexchange.main;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,16 +41,19 @@ public class DAOTesting {
   
   public static void main(String[] args) throws ApplicationException {
     IServiceContext context = getContext();
-    List<ChangeVO> changes = context.getChangeService().getAllEntities();
-    for(ChangeVO ch : changes) {
-      BookVO book = context.getBookService().getById(ch.getBook());
-      UserVO from = context.getUserService().getById(ch.getSender());
-      UserVO to = context.getUserService().getById(ch.getReceiver());
-      String fromname = (from != null) ? from.getName() : "null";
-      
-      System.out.println("At time of: " + ch.getDate() + " Book named: " + book.getName() + " changed owner from: "
-          + fromname + " to: " + to.getName());
-    }
+    long bcount = context.getBookService().getEntitiesCount();
+    long ucount = context.getUserService().getEntitiesCount();
+    UserVO user = context.getUserService().getUserByLogin("newpos");
+    UserVO user1 = context.getUserService().getUserByLogin("Fake");
+    BookVO testbook = context.getBookService().getAllEntities().get(1);
+    List<ChangeVO> changesbyuser = context.getChangeService().getAllChangesByUser(user);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(new Date());
+    cal.set(Calendar.DAY_OF_MONTH, 17);
+    List<ChangeVO> changesbydate = context.getChangeService().getAllChangesForDate(cal.getTime());
+    List<ChangeVO> changesbybook = context.getChangeService().getChangesByBook(testbook);
+    List<ChangeVO> changesbygiver = context.getChangeService().getChangesByGiver(user);
+    List<ChangeVO> changesbyreceiver = context.getChangeService().getChangesByReceiver(user);
   }
   
 }
