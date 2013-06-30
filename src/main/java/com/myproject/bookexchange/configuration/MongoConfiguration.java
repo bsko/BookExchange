@@ -1,7 +1,10 @@
 package com.myproject.bookexchange.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
@@ -22,11 +25,15 @@ import com.myproject.bookexchange.service.impl.ServiceContext;
 import com.myproject.bookexchange.service.impl.UserService;
 
 @Configuration
+@PropertySource("classpath:resources/db.properties")
 public class MongoConfiguration {
 
+  @Autowired
+  private Environment env;
+  
   public @Bean
   MongoDbFactory mongoDbFactory() throws Exception {
-    return new SimpleMongoDbFactory(new MongoClient(), "bookexchangedb");
+    return new SimpleMongoDbFactory(new MongoClient(), env.getProperty("mongodb.name"));
   }
 
   public @Bean
