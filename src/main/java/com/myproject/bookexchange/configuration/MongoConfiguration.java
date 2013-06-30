@@ -12,6 +12,14 @@ import com.myproject.bookexchange.dao.IUserDAO;
 import com.myproject.bookexchange.dao.impl.BookDAO;
 import com.myproject.bookexchange.dao.impl.ChangeDAO;
 import com.myproject.bookexchange.dao.impl.UserDAO;
+import com.myproject.bookexchange.service.IBookService;
+import com.myproject.bookexchange.service.IChangeService;
+import com.myproject.bookexchange.service.IServiceContext;
+import com.myproject.bookexchange.service.IUserService;
+import com.myproject.bookexchange.service.impl.BookService;
+import com.myproject.bookexchange.service.impl.ChangeService;
+import com.myproject.bookexchange.service.impl.ServiceContext;
+import com.myproject.bookexchange.service.impl.UserService;
 
 @Configuration
 public class MongoConfiguration {
@@ -46,5 +54,27 @@ public class MongoConfiguration {
     IChangeDAO dao = new ChangeDAO();
     dao.setMongo(mongoTemplate());
     return dao;
+  }
+  
+  public @Bean IBookService bookService() throws Exception {
+    IBookService service = new BookService();
+    service.setDao(bookDAO());
+    return service;
+  }
+  
+  public @Bean IChangeService changeService() throws Exception {
+    IChangeService service = new ChangeService();
+    service.setDao(changeDAO());
+    return service;
+  }
+  
+  public @Bean IUserService userService() throws Exception {
+    IUserService service = new UserService();
+    service.setDao(userDAO());
+    return service;
+  }
+  
+  public @Bean IServiceContext serviceContext() throws Exception {
+    return new ServiceContext(bookService(), changeService(), userService());
   }
 }

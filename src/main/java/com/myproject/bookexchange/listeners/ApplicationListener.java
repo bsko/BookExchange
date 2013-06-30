@@ -5,9 +5,10 @@ import javax.servlet.ServletContextListener;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.data.mongodb.core.MongoOperations;
 
 import com.myproject.bookexchange.configuration.MongoConfiguration;
+import com.myproject.bookexchange.service.IServiceContext;
+import com.myproject.bookexchange.service.impl.ServiceContext;
 
 public class ApplicationListener implements ServletContextListener {
 
@@ -20,8 +21,8 @@ public class ApplicationListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent arg0) {
     ApplicationContext ctx = new AnnotationConfigApplicationContext(
         MongoConfiguration.class);
-    MongoOperations mongoOperation = (MongoOperations) ctx
-        .getBean("mongoTemplate");
+    IServiceContext context = (IServiceContext) ctx.getBean("serviceContext");
+    ServiceContext.setServiceContext(context);
   }
 
 }
