@@ -1,7 +1,6 @@
 package com.myproject.bookexchange.domain;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 public class CommentVO {
   
